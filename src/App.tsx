@@ -21,6 +21,7 @@ function App() {
     history,
     aiDepth,
     isAiThinking,
+    aiDecisionTimeMs,
     stats,
     setAiDepth,
     setAiPiece,
@@ -70,6 +71,7 @@ function App() {
             winner={winner}
             aiDepth={aiDepth}
             isAiThinking={isAiThinking}
+            aiDecisionTimeMs={aiDecisionTimeMs}
             blackCount={stats.blackCount}
             redCount={stats.redCount}
             onDepthChange={setAiDepth}

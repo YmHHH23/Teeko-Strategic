@@ -37,6 +37,7 @@ export function useTeekoGame() {
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [aiDepth, setAiDepth] = useState<number>(DEFAULT_AI_DEPTH);
   const [isAiThinking, setIsAiThinking] = useState(false);
+  const [aiDecisionTimeMs, setAiDecisionTimeMs] = useState<number | null>(null);
   const [moveCounter, setMoveCounter] = useState(1);
 
   const humanPiece: Piece = aiPiece === "b" ? "r" : "b";
@@ -59,6 +60,7 @@ export function useTeekoGame() {
     setHistory([]);
     setMoveCounter(1);
     setIsAiThinking(false);
+    setAiDecisionTimeMs(null);
   };
 
   const pushHistory = (piece: Piece, move: Move) => {
@@ -142,7 +144,10 @@ export function useTeekoGame() {
     setStatusMessage("AI is thinking...");
 
     const timer = window.setTimeout(() => {
+      const start = performance.now();
       const aiMove = getAiMove(board, aiPiece, aiDepth);
+      const decisionTime = Math.round(performance.now() - start);
+      setAiDecisionTimeMs(decisionTime);
       setIsAiThinking(false);
 
       if (!aiMove) {
@@ -175,6 +180,7 @@ export function useTeekoGame() {
     history,
     aiDepth,
     isAiThinking,
+    aiDecisionTimeMs,
     stats,
     setAiDepth,
     setAiPiece,

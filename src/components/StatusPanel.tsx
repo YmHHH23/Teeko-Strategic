@@ -10,6 +10,7 @@ interface StatusPanelProps {
   winner: Piece | null;
   aiDepth: number;
   isAiThinking: boolean;
+  aiDecisionTimeMs: number | null;
   blackCount: number;
   redCount: number;
   onDepthChange: (depth: number) => void;
@@ -26,6 +27,7 @@ export function StatusPanel({
   winner,
   aiDepth,
   isAiThinking,
+  aiDecisionTimeMs,
   blackCount,
   redCount,
   onDepthChange,
@@ -79,6 +81,9 @@ export function StatusPanel({
           value={aiDepth}
           onChange={(e) => onDepthChange(Number(e.target.value))}
         />
+        <div className="ai-decision-time">
+          Decision time: {aiDecisionTimeMs === null ? "--" : `${aiDecisionTimeMs} ms`}
+        </div>
 
         <button type="button" className="restart-btn" onClick={onRestart}>
           Restart game

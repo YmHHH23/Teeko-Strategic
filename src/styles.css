@@ -78,24 +78,36 @@ body {
 }
 
 .board-shell {
-  position: relative;
+  --cell-size: 78px;
+  --cell-gap: 10px;
+  --axis-size: 22px;
+  --board-pad: 12px;
+  display: grid;
+  grid-template-columns: var(--axis-size) auto;
+  grid-template-rows: 20px auto;
+  gap: 8px;
   width: fit-content;
   margin: 8px auto 16px;
 }
 
 .teeko-board {
-  display: grid;
-  grid-template-columns: repeat(5, 78px);
-  gap: 10px;
+  grid-column: 2;
+  grid-row: 2;
   background: #17243d;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
-  padding: 12px;
+  padding: var(--board-pad);
+}
+
+.teeko-grid {
+  display: grid;
+  grid-template-columns: repeat(5, var(--cell-size));
+  gap: var(--cell-gap);
 }
 
 .teeko-cell {
-  width: 78px;
-  height: 78px;
+  width: var(--cell-size);
+  height: var(--cell-size);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: linear-gradient(145deg, #273961, #1b2b49);
@@ -153,17 +165,29 @@ body {
   font-size: 0.85rem;
 }
 
+.board-axis-corner {
+  grid-column: 1;
+  grid-row: 1;
+}
+
 .board-labels.top {
-  grid-template-columns: repeat(5, 78px);
-  gap: 10px;
-  margin: 0 0 8px 12px;
+  grid-column: 2;
+  grid-row: 1;
+  padding-inline: var(--board-pad);
+  grid-template-columns: repeat(5, var(--cell-size));
+  gap: var(--cell-gap);
+  align-items: center;
+  justify-items: center;
 }
 
 .board-labels.side {
-  position: absolute;
-  left: -26px;
-  top: 42px;
-  gap: 22px;
+  grid-column: 1;
+  grid-row: 2;
+  padding-block: var(--board-pad);
+  grid-template-rows: repeat(5, var(--cell-size));
+  gap: var(--cell-gap);
+  align-items: center;
+  justify-items: center;
 }
 
 .board-footer {
@@ -210,6 +234,11 @@ body {
 .controls {
   display: grid;
   gap: 8px;
+}
+
+.ai-decision-time {
+  color: #b9c7e3;
+  font-size: 0.9rem;
 }
 
 select,
@@ -273,12 +302,12 @@ select {
     grid-template-columns: 1fr;
   }
 
-  .teeko-board {
-    grid-template-columns: repeat(5, minmax(56px, 1fr));
+  .board-shell {
+    --cell-size: min(16vw, 76px);
   }
 
   .teeko-cell {
-    width: min(16vw, 76px);
-    height: min(16vw, 76px);
+    width: var(--cell-size);
+    height: var(--cell-size);
   }
 }
