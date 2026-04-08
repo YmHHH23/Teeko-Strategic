@@ -90,7 +90,7 @@ export function useTeekoGame() {
       piece,
       text: `${PIECE_LABEL[piece]} ${describeMove(move)}`,
     };
-    setHistory((prev) => [entry, ...prev].slice(0, 40));
+    setHistory((prev) => [entry, ...prev].slice(0, 300));
     setMoveCounter((prev) => prev + 1);
   };
 

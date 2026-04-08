@@ -14,11 +14,14 @@ export function HistoryPanel({ entries }: HistoryPanelProps) {
       {entries.length === 0 ? (
         <p className="history-empty">No moves yet.</p>
       ) : (
-        <ol>
+        <ul className="history-list">
           {entries.map((entry) => (
-            <li key={entry.id}>{entry.text}</li>
+            <li key={entry.id}>
+              <span className="history-index">{entry.id}.</span>
+              <span>{entry.text}</span>
+            </li>
           ))}
-        </ol>
+        </ul>
       )}
     </section>
   );

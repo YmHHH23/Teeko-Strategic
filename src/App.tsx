@@ -1,4 +1,5 @@
 import { HistoryPanel } from "./components/HistoryPanel";
+import { RulesPanel } from "./components/RulesPanel";
 import { StatusPanel } from "./components/StatusPanel";
 import { TeekoBoard } from "./components/TeekoBoard";
 import { PIECE_LABEL } from "./game/constants";
@@ -39,31 +40,7 @@ function App() {
       </header>
 
       <main className="layout">
-        <section className="board-panel panel">
-          <div className="board-panel-head">
-            <h2>Board</h2>
-            <div className="chip-row">
-              <span className="chip">Black: {stats.blackCount}</span>
-              <span className="chip">Red: {stats.redCount}</span>
-            </div>
-          </div>
-
-          <TeekoBoard
-            board={board}
-            selectedPiece={selectedPiece}
-            validTargets={validTargets}
-            winningPattern={winningPattern}
-            onCellClick={handleHumanCellClick}
-          />
-
-          <div className="board-footer">
-            <span>Phase: {phase === "drop" ? "Drop" : "Move"}</span>
-            <span>Turn: {PIECE_LABEL[currentTurn]}</span>
-            <span>{winner ? `Winner: ${PIECE_LABEL[winner]}` : statusMessage}</span>
-          </div>
-        </section>
-
-        <div className="side-column">
+        <div className="left-column">
           <StatusPanel
             phase={phase}
             currentTurn={currentTurn}
@@ -88,6 +65,34 @@ function App() {
             onRestart={() => resetGame(aiPiece)}
             onResetSeries={resetSeries}
           />
+        </div>
+
+        <section className="board-panel panel">
+          <div className="board-panel-head">
+            <h2>Board</h2>
+            <div className="chip-row">
+              <span className="chip">Black: {stats.blackCount}</span>
+              <span className="chip">Red: {stats.redCount}</span>
+            </div>
+          </div>
+
+          <TeekoBoard
+            board={board}
+            selectedPiece={selectedPiece}
+            validTargets={validTargets}
+            winningPattern={winningPattern}
+            onCellClick={handleHumanCellClick}
+          />
+
+          <div className="board-footer">
+            <span>Phase: {phase === "drop" ? "Drop" : "Move"}</span>
+            <span>Turn: {PIECE_LABEL[currentTurn]}</span>
+            <span>{winner ? `Winner: ${PIECE_LABEL[winner]}` : statusMessage}</span>
+          </div>
+        </section>
+
+        <div className="right-column">
+          <RulesPanel />
           <HistoryPanel entries={history} />
         </div>
       </main>
