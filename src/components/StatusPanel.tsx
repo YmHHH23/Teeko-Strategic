@@ -11,11 +11,16 @@ interface StatusPanelProps {
   aiDepth: number;
   isAiThinking: boolean;
   aiDecisionTimeMs: number | null;
+  humanWins: number;
+  aiWins: number;
+  streakOwner: "human" | "ai" | null;
+  streakCount: number;
   blackCount: number;
   redCount: number;
   onDepthChange: (depth: number) => void;
   onAiColorChange: (piece: Piece) => void;
   onRestart: () => void;
+  onResetSeries: () => void;
 }
 
 export function StatusPanel({
@@ -28,12 +33,20 @@ export function StatusPanel({
   aiDepth,
   isAiThinking,
   aiDecisionTimeMs,
+  humanWins,
+  aiWins,
+  streakOwner,
+  streakCount,
   blackCount,
   redCount,
   onDepthChange,
   onAiColorChange,
   onRestart,
+  onResetSeries,
 }: StatusPanelProps) {
+  const streakText =
+    streakOwner === null ? "None" : `${streakOwner === "human" ? "Human" : "AI"} x${streakCount}`;
+
   return (
     <aside className="panel">
       <h2>Match Control</h2>
@@ -53,6 +66,22 @@ export function StatusPanel({
         <div>
           <span className="label">AI</span>
           <strong>{PIECE_LABEL[aiPiece]}</strong>
+        </div>
+      </div>
+
+      <div className="series-board">
+        <h3>Match Series</h3>
+        <div className="series-row">
+          <span className="label">Human wins</span>
+          <strong>{humanWins}</strong>
+        </div>
+        <div className="series-row">
+          <span className="label">AI wins</span>
+          <strong>{aiWins}</strong>
+        </div>
+        <div className="series-row">
+          <span className="label">Current streak</span>
+          <strong>{streakText}</strong>
         </div>
       </div>
 
@@ -87,6 +116,9 @@ export function StatusPanel({
 
         <button type="button" className="restart-btn" onClick={onRestart}>
           Restart game
+        </button>
+        <button type="button" className="secondary-btn" onClick={onResetSeries}>
+          Reset series
         </button>
       </div>
 

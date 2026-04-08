@@ -17,6 +17,22 @@ interface HistoryEntry {
   text: string;
 }
 
+type StreakOwner = "human" | "ai" | null;
+
+interface SeriesStats {
+  humanWins: number;
+  aiWins: number;
+  streakOwner: StreakOwner;
+  streakCount: number;
+}
+
+const EMPTY_SERIES: SeriesStats = {
+  humanWins: 0,
+  aiWins: 0,
+  streakOwner: null,
+  streakCount: 0,
+};
+
 function label(pos: Position): string {
   return `${String.fromCharCode(65 + pos.col)}${pos.row + 1}`;
 }
@@ -38,6 +54,7 @@ export function useTeekoGame() {
   const [aiDepth, setAiDepth] = useState<number>(DEFAULT_AI_DEPTH);
   const [isAiThinking, setIsAiThinking] = useState(false);
   const [aiDecisionTimeMs, setAiDecisionTimeMs] = useState<number | null>(null);
+  const [seriesStats, setSeriesStats] = useState<SeriesStats>(EMPTY_SERIES);
   const [moveCounter, setMoveCounter] = useState(1);
 
   const humanPiece: Piece = aiPiece === "b" ? "r" : "b";
@@ -63,6 +80,10 @@ export function useTeekoGame() {
     setAiDecisionTimeMs(null);
   };
 
+  const resetSeries = () => {
+    setSeriesStats(EMPTY_SERIES);
+  };
+
   const pushHistory = (piece: Piece, move: Move) => {
     const entry: HistoryEntry = {
       id: moveCounter,
@@ -85,6 +106,16 @@ export function useTeekoGame() {
       setWinner(result.winner);
       setWinningPattern(result.pattern);
       setStatusMessage(`${PIECE_LABEL[result.winner]} wins.`);
+      setSeriesStats((prev) => {
+        const winnerSide: Exclude<StreakOwner, null> = result.winner === humanPiece ? "human" : "ai";
+        const nextStreakCount = prev.streakOwner === winnerSide ? prev.streakCount + 1 : 1;
+        return {
+          humanWins: prev.humanWins + (winnerSide === "human" ? 1 : 0),
+          aiWins: prev.aiWins + (winnerSide === "ai" ? 1 : 0),
+          streakOwner: winnerSide,
+          streakCount: nextStreakCount,
+        };
+      });
       return;
     }
 
@@ -181,10 +212,12 @@ export function useTeekoGame() {
     aiDepth,
     isAiThinking,
     aiDecisionTimeMs,
+    seriesStats,
     stats,
     setAiDepth,
     setAiPiece,
     resetGame,
+    resetSeries,
     handleHumanCellClick,
   };
 }

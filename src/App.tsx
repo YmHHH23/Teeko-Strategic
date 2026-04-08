@@ -22,10 +22,12 @@ function App() {
     aiDepth,
     isAiThinking,
     aiDecisionTimeMs,
+    seriesStats,
     stats,
     setAiDepth,
     setAiPiece,
     resetGame,
+    resetSeries,
     handleHumanCellClick,
   } = useTeekoGame();
 
@@ -72,6 +74,10 @@ function App() {
             aiDepth={aiDepth}
             isAiThinking={isAiThinking}
             aiDecisionTimeMs={aiDecisionTimeMs}
+            humanWins={seriesStats.humanWins}
+            aiWins={seriesStats.aiWins}
+            streakOwner={seriesStats.streakOwner}
+            streakCount={seriesStats.streakCount}
             blackCount={stats.blackCount}
             redCount={stats.redCount}
             onDepthChange={setAiDepth}
@@ -80,6 +86,7 @@ function App() {
               resetGame(piece);
             }}
             onRestart={() => resetGame(aiPiece)}
+            onResetSeries={resetSeries}
           />
           <HistoryPanel entries={history} />
         </div>

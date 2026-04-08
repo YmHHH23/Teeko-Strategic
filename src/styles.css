@@ -236,6 +236,31 @@ body {
   gap: 8px;
 }
 
+.series-board {
+  margin-top: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.series-board h3 {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+}
+
+.series-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.series-row strong {
+  color: #e8edf6;
+}
+
 .ai-decision-time {
   color: #b9c7e3;
   font-size: 0.9rem;
@@ -261,6 +286,16 @@ select {
   padding: 10px 12px;
   background: linear-gradient(180deg, #4f8dff, #3e72d1);
   color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.secondary-btn {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 9px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #dbe7ff;
   font-weight: 600;
   cursor: pointer;
 }
