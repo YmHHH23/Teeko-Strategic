@@ -1,0 +1,284 @@
+:root {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #e8edf6;
+  background: radial-gradient(circle at 20% 20%, #1d2940, #0f1422 65%);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  margin: 0 0 6px;
+  font-size: 2rem;
+  letter-spacing: 0.02em;
+}
+
+.header p {
+  margin: 0;
+  color: #a7b3c9;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(520px, 1fr) 360px;
+  gap: 18px;
+  align-items: start;
+}
+
+.panel {
+  background: rgba(12, 17, 30, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(4px);
+}
+
+.board-panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.board-panel h2,
+.panel h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.chip-row {
+  display: flex;
+  gap: 8px;
+}
+
+.chip {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.board-shell {
+  position: relative;
+  width: fit-content;
+  margin: 8px auto 16px;
+}
+
+.teeko-board {
+  display: grid;
+  grid-template-columns: repeat(5, 78px);
+  gap: 10px;
+  background: #17243d;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.teeko-cell {
+  width: 78px;
+  height: 78px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(145deg, #273961, #1b2b49);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.teeko-cell:hover {
+  transform: translateY(-1px);
+  border-color: rgba(137, 201, 255, 0.7);
+}
+
+.teeko-cell.selected {
+  border-color: #b6fd62;
+  box-shadow: 0 0 0 2px rgba(182, 253, 98, 0.25);
+}
+
+.teeko-cell.valid-target {
+  border-color: #69b5ff;
+}
+
+.teeko-cell.winning {
+  box-shadow: 0 0 0 2px rgba(255, 216, 73, 0.45);
+  border-color: #ffd849;
+}
+
+.piece {
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+}
+
+.piece-black {
+  background: radial-gradient(circle at 32% 28%, #575757, #1f1f1f 65%, #0c0c0c);
+}
+
+.piece-red {
+  background: radial-gradient(circle at 32% 28%, #ff8484, #d83636 65%, #860e0e);
+}
+
+.target-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #7ec7ff;
+  opacity: 0.8;
+}
+
+.board-labels {
+  display: grid;
+  color: #9eb0cf;
+  font-size: 0.85rem;
+}
+
+.board-labels.top {
+  grid-template-columns: repeat(5, 78px);
+  gap: 10px;
+  margin: 0 0 8px 12px;
+}
+
+.board-labels.side {
+  position: absolute;
+  left: -26px;
+  top: 42px;
+  gap: 22px;
+}
+
+.board-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  color: #c7d3eb;
+  font-size: 0.92rem;
+}
+
+.side-column {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.label {
+  display: block;
+  font-size: 0.78rem;
+  color: #9bb0d4;
+}
+
+.status-message {
+  margin: 12px 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(129, 195, 255, 0.12);
+  border: 1px solid rgba(129, 195, 255, 0.35);
+}
+
+.status-message[data-winner="true"] {
+  background: rgba(255, 216, 88, 0.14);
+  border-color: rgba(255, 216, 88, 0.35);
+}
+
+.controls {
+  display: grid;
+  gap: 8px;
+}
+
+select,
+input[type="range"] {
+  width: 100%;
+}
+
+select {
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #111a2e;
+  color: #e7ecf5;
+  padding: 8px;
+}
+
+.restart-btn {
+  margin-top: 6px;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: linear-gradient(180deg, #4f8dff, #3e72d1);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.rules {
+  margin-top: 14px;
+}
+
+.rules h3 {
+  margin: 0 0 8px;
+  font-size: 0.98rem;
+}
+
+.rules ul {
+  margin: 0;
+  padding-left: 18px;
+  color: #c2cfea;
+}
+
+.history-panel ol {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  max-height: 220px;
+  overflow: auto;
+}
+
+.history-panel li {
+  margin-bottom: 6px;
+  color: #d0daf0;
+}
+
+.history-empty {
+  margin: 10px 0 0;
+  color: #a8b6d4;
+}
+
+@media (max-width: 1020px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .teeko-board {
+    grid-template-columns: repeat(5, minmax(56px, 1fr));
+  }
+
+  .teeko-cell {
+    width: min(16vw, 76px);
+    height: min(16vw, 76px);
+  }
+}
