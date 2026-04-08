@@ -15,7 +15,7 @@ A portfolio-style interactive Teeko web app built with React + TypeScript + Vite
 - Move history, phase/turn indicators, and AI thinking state
 - Restart and AI-color selection (AI can open as Black)
 
-![Extension Layout](image/layout.jpg)
+![Extension Layout](image/layout.png)
 
 ## Run locally
 
